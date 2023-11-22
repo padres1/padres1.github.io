@@ -46,90 +46,89 @@
         <p class="commonText2">Jídlo a pití je k dispozici pro všechny Mírotvorce zdarma v jídelně.</p>
       </div>
       <div>
-        <p class="commonText2">#include <stdio.h>
-#include <stdlib.h>
-#define hodne 9999999999
-// do text a bin soboru realna cislo dokavat 999 DONE
-// zobrazit to nad timhle
-// prumer.txt - prumer DNO
-// min.dat - nejmensi cislo DOJNE
+        <p class="commonText2">
+#define hodne 9999999999</br>
+// do text a bin soboru realna cislo dokavat 999 DONE</br>
+// zobrazit to nad timhle</br>
+// prumer.txt - prumer DNO</br>
+// min.dat - nejmensi cislo DOJNE</br>
 
 
 
-int main(){
+int main(){</br>
 
-    FILE *textSoubor, *binSoubor, *avgSoubor, *minSoubor;
-    float avg, min = hodne, num, sum = 0;
-    int counter = 0;
+    FILE *textSoubor, *binSoubor, *avgSoubor, *minSoubor;</br>
+    float avg, min = hodne, num, sum = 0;</br>
+    int counter = 0;</br>
 
-    textSoubor = fopen("cisla.txt","w");
-    binSoubor = fopen("binary.dat","wb");
-    avgSoubor = fopen("prumer.txt","w");
+    textSoubor = fopen("cisla.txt","w");</br>
+    binSoubor = fopen("binary.dat","wb");</br>
+    avgSoubor = fopen("prumer.txt","w");</br>
     minSoubor = fopen("min.dat","wb");
+</br>
+    do{</br>
 
-    do{
+        printf("Zadej realna cisla (999 ukonci): ");</br>
+        scanf("%f",&num);</br>
 
-        printf("Zadej realna cisla (999 ukonci): ");
-        scanf("%f",&num);
+        if (num == 999){</br>
+            break;</br>
+        }</br>
 
-        if (num == 999){
-            break;
-        }
+        fprintf(textSoubor,"%.2f  ",num);</br>
+        fwrite(&num,sizeof(float),1,binSoubor);//1 bo jeden block cosik vždy 1 ☺</br>
 
-        fprintf(textSoubor,"%.2f  ",num);
-        fwrite(&num,sizeof(float),1,binSoubor);//1 bo jeden block cosik vždy 1 ☺
+        sum = sum + num;</br>
 
-        sum = sum + num;
-
-        if (num < min){    
-            min = num;
-        }
+        if (num < min){    </br>
+            min = num;</br>
+        }</br>
         
-        counter++;
+        counter++;</br>
 
-    } while (1);
+    } while (1);</br>
     
-    avg = sum/counter;
+    avg = sum/counter;</br>
 
-    fprintf(avgSoubor,"%.2f  ",avg);
-    fwrite(&min,sizeof(float),1,minSoubor);
+    fprintf(avgSoubor,"%.2f  ",avg);</br>
+    fwrite(&min,sizeof(float),1,minSoubor);</br>
 
-    fclose(textSoubor);
-    fclose(binSoubor);
-    fclose(avgSoubor);
-    fclose(minSoubor);
+    fclose(textSoubor);</br>
+    fclose(binSoubor);</br>
+    fclose(avgSoubor);</br>
+    fclose(minSoubor);</br>
 
-    textSoubor = fopen("cisla.txt","r");
-    binSoubor = fopen("binary.dat","rb");
-    minSoubor = fopen("min.dat","rb");
+    textSoubor = fopen("cisla.txt","r");</br>
+    binSoubor = fopen("binary.dat","rb");</br>
+    minSoubor = fopen("min.dat","rb");</br>
 
-    printf("Obsah textoveho souboru: ");
-    while(fscanf(textSoubor,"%f",&num) == 1){ // == 1 znamena ze to naslo float
+    printf("Obsah textoveho souboru: ");</br>
+    while(fscanf(textSoubor,"%f",&num) == 1){ // == 1 znamena ze to naslo float</br>
         
-        printf("%.2f  ",num);
+        printf("%.2f  ",num);</br>
 
+    }</br>
+
+    printf("\nObsah binarniho souboru: ");</br>
+    while(fread(&num,sizeof(float),1,binSoubor) == 1){</br>
+        
+        printf("%.2f  ",num);</br>
+        
     }
 
-    printf("\nObsah binarniho souboru: ");
-    while(fread(&num,sizeof(float),1,binSoubor) == 1){
-        
-        printf("%.2f  ",num);
-        
-    }
+    printf("\nVypsani min.dat (protoze se neda lehce zkontrolovat jestli je ten .dat soubor spravne): ");</br>
 
-    printf("\nVypsani min.dat (protoze se neda lehce zkontrolovat jestli je ten .dat soubor spravne): ");
+    fscanf(minSoubor,"%f",&num);</br>
+    printf("%.2f\n",num);</br>
 
-    fscanf(minSoubor,"%f",&num);
-    printf("%.2f\n",num);
-
-    fclose(textSoubor);
-    fclose(binSoubor);
-    fclose(minSoubor);
+    fclose(textSoubor);</br>
+    fclose(binSoubor);</br>
+    fclose(minSoubor);</br>
     
     
 
-    system("pause");
-    return 0;
+    system("pause");</br>
+    return 0;</br>
 } </p>
       </div>
     </div>
