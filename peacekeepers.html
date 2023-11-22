@@ -48,6 +48,93 @@
       <div>
         <p class="commonText2">Bojujeme nejen pro dobro Starého Villedoru, ale i pro celý zbytek světa. </p>
       </div>
+      <div>
+        <p>#include <stdio.h>
+#include <stdlib.h>
+#define hodne 9999999999
+// do text a bin soboru realna cislo dokavat 999 DONE
+// zobrazit to nad timhle
+// prumer.txt - prumer DNO
+// min.dat - nejmensi cislo DOJNE
+
+
+
+int main(){
+
+    FILE *textSoubor, *binSoubor, *avgSoubor, *minSoubor;
+    float avg, min = hodne, num, sum = 0;
+    int counter = 0;
+
+    textSoubor = fopen("cisla.txt","w");
+    binSoubor = fopen("binary.dat","wb");
+    avgSoubor = fopen("prumer.txt","w");
+    minSoubor = fopen("min.dat","wb");
+
+    do{
+
+        printf("Zadej realna cisla (999 ukonci): ");
+        scanf("%f",&num);
+
+        if (num == 999){
+            break;
+        }
+
+        fprintf(textSoubor,"%.2f  ",num);
+        fwrite(&num,sizeof(float),1,binSoubor);//1 bo jeden block cosik vždy 1 ☺
+
+        sum = sum + num;
+
+        if (num < min){    
+            min = num;
+        }
+        
+        counter++;
+
+    } while (1);
+    
+    avg = sum/counter;
+
+    fprintf(avgSoubor,"%.2f  ",avg);
+    fwrite(&min,sizeof(float),1,minSoubor);
+
+    fclose(textSoubor);
+    fclose(binSoubor);
+    fclose(avgSoubor);
+    fclose(minSoubor);
+
+    textSoubor = fopen("cisla.txt","r");
+    binSoubor = fopen("binary.dat","rb");
+    minSoubor = fopen("min.dat","rb");
+
+    printf("Obsah textoveho souboru: ");
+    while(fscanf(textSoubor,"%f",&num) == 1){ // == 1 znamena ze to naslo float
+        
+        printf("%.2f  ",num);
+
+    }
+
+    printf("\nObsah binarniho souboru: ");
+    while(fread(&num,sizeof(float),1,binSoubor) == 1){
+        
+        printf("%.2f  ",num);
+        
+    }
+
+    printf("\nVypsani min.dat (protoze se neda lehce zkontrolovat jestli je ten .dat soubor spravne): ");
+
+    fscanf(minSoubor,"%f",&num);
+    printf("%.2f\n",num);
+
+    fclose(textSoubor);
+    fclose(binSoubor);
+    fclose(minSoubor);
+    
+    
+
+    system("pause");
+    return 0;
+}</p>
+      </div>
     </div>
   </body>
 
